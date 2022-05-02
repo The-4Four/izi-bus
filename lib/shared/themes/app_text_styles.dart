@@ -18,4 +18,14 @@ class TextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.buttons,
   );
+  static final listFirst = GoogleFonts.outfit(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
+  static final listDefault = GoogleFonts.outfit(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textCaption,
+  );
 }
