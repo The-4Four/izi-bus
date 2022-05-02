@@ -27,18 +27,19 @@ class LinesPage extends StatelessWidget {
                 child: const Icon(Icons.arrow_back,
                     size: 32, color: AppColors.textPrimary)),
           ),
-          ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) => _buildLineCard(lines[index]),
-              separatorBuilder: (context, index) => const Divider(
-                    thickness: 1,
-                    indent: 16,
-                    endIndent: 16,
-                    color: AppColors.divider,
-                  ),
-              itemCount: lines.length)
+          Expanded(
+            child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) => _buildLineCard(lines[index]),
+                separatorBuilder: (context, index) => const Divider(
+                      thickness: 1,
+                      indent: 16,
+                      endIndent: 16,
+                      color: AppColors.divider,
+                    ),
+                itemCount: lines.length),
+          )
         ]));
   }
 }
