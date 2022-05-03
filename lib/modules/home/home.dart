@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 
@@ -13,8 +12,8 @@ class Home extends StatelessWidget {
       body: Center(
           child: GestureDetector(
         onTap: () => {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const LinesPage()))
+          Navigator.of(context)
+              .pushNamed('/lines_page', arguments: "Show lines")
         },
         child: Container(
           decoration: const BoxDecoration(
