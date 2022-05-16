@@ -8,7 +8,7 @@ class Routes {
     final args = settings.arguments;
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => const Home());
+        return MaterialPageRoute(builder: (_) => Home());
       case '/lines_page':
         if (args is String) {
           return MaterialPageRoute(builder: (_) => const LinesPage());
