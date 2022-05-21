@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
 
   late GoogleMapController _googleMapController;
 
-  Future<void> _goToTheLake() async {
+  Future<void> _irParaLocalInicial() async {
     final GoogleMapController controller = await _controller.future;
     controller
         .animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
             rotateGesturesEnabled: true,
             tiltGesturesEnabled: true,
             onMapCreated: (GoogleMapController controller) {
-              _goToTheLake();
+              _irParaLocalInicial();
               _controller.complete(controller);
             },
           ),
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
         foregroundColor: Colors.black,
         onPressed: () {
           print(_initialCameraPosition);
-          _goToTheLake();
+          _irParaLocalInicial();
         },
         child: const Icon(Icons.center_focus_strong),
       ),

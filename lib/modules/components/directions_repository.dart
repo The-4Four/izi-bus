@@ -3,6 +3,8 @@ import 'package:izi_bus/.env.dart';
 import 'package:izi_bus/modules/components/directions_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+//BASEADO NO CODIGO DE https://github.com/MarcusNg/flutter_gmaps
+
 class DirectionsRepository {
   static const String _baseUrl =
       'https://maps.googleapis.com/maps/api/directions/json?';
