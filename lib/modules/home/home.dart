@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:izi_bus/modules/components/stops_temp.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,6 +12,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final List<Marker> _markers = <Marker>[];
+
   static const _initialCameraPosition = CameraPosition(
     target: LatLng(-26.2295, -52.6716),
     zoom: 15,
@@ -20,10 +23,19 @@ class _HomeState extends State<Home> {
 
   late GoogleMapController _googleMapController;
 
-  Future<void> _irParaLocalInicial() async {
+  Future<void> _setMapInitialPosition() async {
     final GoogleMapController controller = await _controller.future;
     controller
         .animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
+  }
+
+  void _addInitialMarkers() {
+    stops.forEach((stop) {
+      _markers.add(Marker(
+          markerId: MarkerId(stop['id']),
+          position: LatLng(stop['lat'], stop['long'])));
+    });
+    setState(() {});
   }
 
   @override
@@ -46,9 +58,10 @@ class _HomeState extends State<Home> {
             rotateGesturesEnabled: true,
             tiltGesturesEnabled: true,
             onMapCreated: (GoogleMapController controller) {
-              _irParaLocalInicial();
+              _setMapInitialPosition();
               _controller.complete(controller);
             },
+            markers: Set<Marker>.of(_markers),
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -81,8 +94,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.black,
         onPressed: () {
-          print(_initialCameraPosition);
-          _irParaLocalInicial();
+          _addInitialMarkers();
         },
         child: const Icon(Icons.center_focus_strong),
       ),
