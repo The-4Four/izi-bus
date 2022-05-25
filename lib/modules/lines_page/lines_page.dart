@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/line_card.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
-import 'package:izi_bus/modules/components/lines_temp.dart';
+import 'package:izi_bus/modules/components/lines.temp.dart';
 
 class LinesPage extends StatelessWidget {
   const LinesPage({Key? key}) : super(key: key);
