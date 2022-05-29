@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/buses.temp.dart';
 import 'package:izi_bus/modules/components/stops.temp.dart';
+import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -93,7 +95,15 @@ class _HomeState extends State<Home> {
             ),
             child: GestureDetector(
               onTap: () => {
-                Navigator.of(context).pushNamed('/lines_page', arguments: '')
+                showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(16))),
+                    builder: (context) {
+                      return const CustomBottomSheet(child: LinesPage());
+                    })
               },
               child: Container(
                 decoration: const BoxDecoration(
