@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/buses.temp.dart';
 import 'package:izi_bus/modules/components/stops.temp.dart';
@@ -18,6 +19,7 @@ class _HomeState extends State<Home> {
   final List<Marker> stopsMarkers = <Marker>[];
   final List<Marker> busesMarkers = <Marker>[];
   final List<Marker> mapMarkers = <Marker>[];
+  final List<Marker> markers = <Marker>[];
 
   // Posição inicial do mapa
   static const _initialCameraPosition = CameraPosition(
@@ -34,26 +36,38 @@ class _HomeState extends State<Home> {
         .animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
   }
 
-  Future<void> _addInitialStopsMarkers() async {
-    for (var stop in stops) {
-      stopsMarkers.add(Marker(
-        markerId: MarkerId(stop['id']),
+  Future<void> _onTapMarker(String id, double lat, double long) async {
+    markers.clear();
+    markers.add(Marker(
+        markerId: MarkerId(id),
         icon: BitmapDescriptor.fromBytes(
-            await customMarkerIcon('lib/assets/pin_icon.png', 80)),
-        position: LatLng(stop['lat'], stop['long']),
-      ));
-    }
-
+            await customMarkerIcon('lib/assets/bus_icon.png', 65)),
+        position: LatLng(lat, long),
+        infoWindow: InfoWindow(title: id)));
     setState(() {});
   }
 
-  Future<void> _addInitialBusesMarkers() async {
+  Future<void> _addInitialMarkers() async {
     for (var bus in buses) {
-      busesMarkers.add(Marker(
-        markerId: MarkerId(bus['id']),
+      markers.add(
+        Marker(
+            markerId: MarkerId(bus['id']),
+            icon: BitmapDescriptor.fromBytes(
+                await customMarkerIcon('lib/assets/bus_icon.png', 60)),
+            position: LatLng(bus['lat'], bus['long']),
+            infoWindow: InfoWindow(title: '${bus['id']}'),
+            onTap: () {
+              _onTapMarker(bus['id'], bus['lat'], bus['long']);
+            }),
+      );
+    }
+    for (var stop in stops) {
+      markers.add(Marker(
+        markerId: MarkerId(stop['id']),
         icon: BitmapDescriptor.fromBytes(
-            await customMarkerIcon('lib/assets/bus_icon.png', 80)),
-        position: LatLng(bus['lat'], bus['long']),
+            await customMarkerIcon('lib/assets/pin_icon.png', 60)),
+        position: LatLng(stop['lat'], stop['long']),
+        //onTap: ,
       ));
     }
 
@@ -82,10 +96,8 @@ class _HomeState extends State<Home> {
             onMapCreated: (GoogleMapController controller) {
               _setMapInitialPosition();
               _controller.complete(controller);
-              _addInitialStopsMarkers();
-              _addInitialBusesMarkers();
             },
-            markers: Set<Marker>.of(busesMarkers),
+            markers: Set<Marker>.of(markers),
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -116,7 +128,9 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.black,
-        onPressed: () {},
+        onPressed: () {
+          _addInitialMarkers();
+        },
         child: const Icon(Icons.center_focus_strong),
       ),
     );
