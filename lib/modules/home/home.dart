@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/buses.temp.dart';
+import 'package:izi_bus/modules/components/button/button.dart';
 import 'package:izi_bus/modules/components/stops.temp.dart';
 import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
@@ -90,44 +91,22 @@ class _HomeState extends State<Home> {
             markers: Set<Marker>.of(busesMarkers),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              bottom: 16,
-            ),
-            child: GestureDetector(
-              onTap: () => {
-                showModalBottomSheet(
-                    context: context,
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(16))),
-                    builder: (context) {
-                      return const CustomBottomSheet(child: LinesPage());
-                    })
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  color: AppColors.primary,
-                ),
-                width: 240,
-                height: 56,
-                alignment: Alignment.center,
-                child: Text(
-                  "VER AS LINHAS DE ÔNIBUS",
-                  style: TextStyles.button,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
+              padding: const EdgeInsets.only(bottom: 40, left: 40, right: 40),
+              child: Button(
+                text: "VER AS LINHAS DE ÔNIBUS",
+                onPressed: () {
+                  showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(16))),
+                      builder: (context) {
+                        return const CustomBottomSheet(child: LinesPage());
+                      });
+                },
+              )),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).primaryColor,
-        foregroundColor: Colors.black,
-        onPressed: () {},
-        child: const Icon(Icons.center_focus_strong),
       ),
     );
   }
