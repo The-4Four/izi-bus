@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/buses.temp.dart';
@@ -22,6 +23,7 @@ class _HomeState extends State<Home> {
   final List<Marker> stopsMarkers = <Marker>[];
   final List<Marker> busesMarkers = <Marker>[];
   final List<Marker> mapMarkers = <Marker>[];
+  final List<Marker> markers = <Marker>[];
 
   // Posição inicial do mapa
   static const _initialCameraPosition = CameraPosition(
@@ -38,12 +40,36 @@ class _HomeState extends State<Home> {
         .animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
   }
 
-  Future<void> _addInitialStopsMarkers() async {
+  Future<void> _onTapMarker(String id, double lat, double long) async {
+    markers.clear();
+    markers.add(Marker(
+        markerId: MarkerId(id),
+        icon: BitmapDescriptor.fromBytes(
+            await customMarkerIcon('lib/assets/bus_icon.png', 65)),
+        position: LatLng(lat, long),
+        infoWindow: InfoWindow(title: id)));
+    setState(() {});
+  }
+
+  Future<void> _addInitialMarkers() async {
+    for (var bus in buses) {
+      markers.add(
+        Marker(
+            markerId: MarkerId(bus['id']),
+            icon: BitmapDescriptor.fromBytes(
+                await customMarkerIcon('lib/assets/bus_icon.png', 60)),
+            position: LatLng(bus['lat'], bus['long']),
+            infoWindow: InfoWindow(title: '${bus['id']}'),
+            onTap: () {
+              _onTapMarker(bus['id'], bus['lat'], bus['long']);
+            }),
+      );
+    }
     for (var stop in stops) {
-      stopsMarkers.add(Marker(
+      markers.add(Marker(
           markerId: MarkerId(stop['id']),
           icon: BitmapDescriptor.fromBytes(
-              await customMarkerIcon('lib/assets/pin_icon.png', 80)),
+              await customMarkerIcon('lib/assets/pin_icon.png', 60)),
           position: LatLng(stop['lat'], stop['long']),
           onTap: () {
             showModalBottomSheet(
@@ -57,19 +83,6 @@ class _HomeState extends State<Home> {
                       child: StopsPage(stopName: "Casa do Artesão"));
                 });
           }));
-    }
-
-    setState(() {});
-  }
-
-  Future<void> _addInitialBusesMarkers() async {
-    for (var bus in buses) {
-      busesMarkers.add(Marker(
-        markerId: MarkerId(bus['id']),
-        icon: BitmapDescriptor.fromBytes(
-            await customMarkerIcon('lib/assets/bus_icon.png', 80)),
-        position: LatLng(bus['lat'], bus['long']),
-      ));
     }
 
     setState(() {});
@@ -97,10 +110,8 @@ class _HomeState extends State<Home> {
             onMapCreated: (GoogleMapController controller) {
               _setMapInitialPosition();
               _controller.complete(controller);
-              _addInitialStopsMarkers();
-              _addInitialBusesMarkers();
             },
-            markers: Set<Marker>.of(stopsMarkers),
+            markers: Set<Marker>.of(markers),
           ),
           Padding(
               padding: const EdgeInsets.only(bottom: 40, left: 40, right: 40),
