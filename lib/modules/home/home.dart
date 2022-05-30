@@ -109,6 +109,7 @@ class _HomeState extends State<Home> {
             tiltGesturesEnabled: true,
             onMapCreated: (GoogleMapController controller) {
               _setMapInitialPosition();
+              _addInitialMarkers();
               _controller.complete(controller);
             },
             markers: Set<Marker>.of(markers),
