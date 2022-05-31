@@ -10,4 +10,6 @@ class AppColors {
   static const background = Color(0xFFF6F6F6);
   static const divider = Color(0xFFE9E9E9);
   static const bottomSheetHandle = Color(0xFFA1A1A1);
+  static const elevation = Color(0xFFE7E7E7);
+  static const inputPlaceholder = Color(0xFF626262);
 }
