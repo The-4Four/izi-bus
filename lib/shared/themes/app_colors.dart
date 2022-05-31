@@ -9,4 +9,5 @@ class AppColors {
   static const buttons = Color(0xFFF6F6F6);
   static const background = Color(0xFFF6F6F6);
   static const divider = Color(0xFFE9E9E9);
+  static const bottomSheetHandle = Color(0xFFA1A1A1);
 }
