@@ -23,6 +23,11 @@ class TextStyles {
       fontWeight: FontWeight.w600,
       color: AppColors.buttons,
       letterSpacing: 2.0);
+  static final transparentButton = GoogleFonts.outfit(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: AppColors.primary,
+      letterSpacing: 2.0);
   static final inputLabel = GoogleFonts.outfit(
     fontSize: 16,
     fontWeight: FontWeight.w400,

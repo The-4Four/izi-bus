@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/beneficiaryBankAccountInfo/beneficiary_bank_account_info.dart';
+import 'package:izi_bus/modules/recharge_user_card/components/paymentTypeBottomSheet/payment_type_bottom_sheet.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/pixClipBoard/pix_clip_board.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/modules/components/text_input/text_input.dart';
@@ -65,7 +67,20 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                 textInputType: TextInputType.number),
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                child: Button(text: "Forma de pagamento", onPressed: () {})),
+                child: Button(
+                    text: "Forma de pagamento",
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(16))),
+                          builder: (context) {
+                            return const CustomBottomSheet(
+                                child: PaymentTypeBottomSheet());
+                          });
+                    })),
             Container(child: getPaymentTypeWidget(context)),
             Expanded(
               child: Align(
