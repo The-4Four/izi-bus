@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
+import 'package:izi_bus/modules/recharge_user_card/components/beneficiaryBankAccountInfo/beneficiary_bank_account_info.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/pixClipBoard/pix_clip_board.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/modules/components/text_input/text_input.dart';
@@ -15,15 +16,14 @@ class RechargeUserCardPage extends StatefulWidget {
 }
 
 class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
-  PaymentType selectedPaymentType = PaymentType.pix;
+  PaymentType selectedPaymentType = PaymentType.transfer;
   bool finishedButtonEnabled = false;
 
   Widget getPaymentTypeWidget(context) {
     if (selectedPaymentType == PaymentType.pix) {
-      setState(() {
-        finishedButtonEnabled = true;
-      });
       return PixClipBoard(clipboardContext: context);
+    } else if (selectedPaymentType == PaymentType.transfer) {
+      return BeneficiaryBankAccountInfo();
     }
 
     return Container();

@@ -43,4 +43,14 @@ class TextStyles {
     fontWeight: FontWeight.w600,
     color: AppColors.textCaption,
   );
+  static final mediumBoldText = GoogleFonts.outfit(
+    fontSize: 16,
+    fontWeight: FontWeight.w800,
+    color: AppColors.inputPlaceholder,
+  );
+  static final mediumText = GoogleFonts.outfit(
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: AppColors.inputPlaceholder,
+  );
 }
