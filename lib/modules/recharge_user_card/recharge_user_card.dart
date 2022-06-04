@@ -16,13 +16,19 @@ class RechargeUserCardPage extends StatefulWidget {
 }
 
 class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
-  PaymentType selectedPaymentType = PaymentType.transfer;
-  bool finishedButtonEnabled = false;
+  final PaymentType selectedPaymentType = PaymentType.none;
+  bool finishedButtonDisabled = true;
 
   Widget getPaymentTypeWidget(context) {
     if (selectedPaymentType == PaymentType.pix) {
+      setState(() {
+        finishedButtonDisabled = false;
+      });
       return PixClipBoard(clipboardContext: context);
     } else if (selectedPaymentType == PaymentType.transfer) {
+      setState(() {
+        finishedButtonDisabled = false;
+      });
       return BeneficiaryBankAccountInfo();
     }
 
@@ -67,7 +73,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                 child: Button(
                   text: "Finalizar recarga",
                   onPressed: () {},
-                  disabled: finishedButtonEnabled,
+                  disabled: finishedButtonDisabled,
                 ),
               ),
             )

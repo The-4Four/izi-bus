@@ -18,11 +18,12 @@ class Button extends StatelessWidget {
       height: 52,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-          color:
-              disabled == null ? AppColors.primary : AppColors.disabledButton,
+          color: disabled == false || disabled == null
+              ? AppColors.primary
+              : AppColors.disabledButton,
           borderRadius: BorderRadius.circular(4)),
       child: TextButton(
-        onPressed: disabled == null ? onPressed : () {},
+        onPressed: disabled == false || disabled == null ? onPressed : () {},
         child: Text(
           text.toUpperCase(),
           style: TextStyles.button,
