@@ -28,7 +28,7 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.inputPlaceholder,
   );
-  static final floatingInputLabel = GoogleFonts.outfit(
+  static final smallText = GoogleFonts.outfit(
     fontSize: 12,
     fontWeight: FontWeight.w200,
     color: AppColors.inputPlaceholder,

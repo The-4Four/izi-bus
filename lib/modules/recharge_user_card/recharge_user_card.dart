@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
+import 'package:izi_bus/modules/recharge_user_card/components/pixClipBoard/pix_clip_board.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/modules/components/text_input/text_input.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
 
-class RechargeUserCardPage extends StatelessWidget {
+enum PaymentType { none, pix, transfer, creditCard }
+
+class RechargeUserCardPage extends StatefulWidget {
   const RechargeUserCardPage({Key? key}) : super(key: key);
+
+  @override
+  State<RechargeUserCardPage> createState() => _RechargeUserCardPageState();
+}
+
+class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
+  PaymentType selectedPaymentType = PaymentType.pix;
+  bool finishedButtonEnabled = false;
+
+  Widget getPaymentTypeWidget(context) {
+    if (selectedPaymentType == PaymentType.pix) {
+      setState(() {
+        finishedButtonEnabled = true;
+      });
+      return PixClipBoard(clipboardContext: context);
+    }
+
+    return Container();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +53,21 @@ class RechargeUserCardPage extends StatelessWidget {
                   text: TextSpan(
                       text: "Recarga de cartão", style: TextStyles.title)),
             ),
+            TextInput(
+                placeholder: "Valor",
+                validator: (String? value) {},
+                textInputType: TextInputType.number),
             Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: TextInput(
-                    placeholder: "Valor", validator: (String? value) {})),
-            Button(text: "Forma de pagamento", onPressed: () {}),
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Button(text: "Forma de pagamento", onPressed: () {})),
+            Container(child: getPaymentTypeWidget(context)),
             Expanded(
               child: Align(
                 alignment: FractionalOffset.bottomCenter,
                 child: Button(
                   text: "Finalizar recarga",
                   onPressed: () {},
-                  disabled: true,
+                  disabled: finishedButtonEnabled,
                 ),
               ),
             )
