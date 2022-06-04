@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
 
 class TextStyles {
+  static final title = GoogleFonts.outfit(
+    fontSize: 36,
+    fontWeight: FontWeight.w600,
+    color: AppColors.textPrimary,
+  );
   static final cardTitle = GoogleFonts.outfit(
     fontSize: 24,
     fontWeight: FontWeight.w600,
@@ -14,10 +19,10 @@ class TextStyles {
     color: AppColors.textCaption,
   );
   static final button = GoogleFonts.outfit(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    color: AppColors.buttons,
-  );
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: AppColors.buttons,
+      letterSpacing: 2.0);
   static final inputLabel = GoogleFonts.outfit(
     fontSize: 16,
     fontWeight: FontWeight.w400,
