@@ -3,7 +3,6 @@ import 'package:izi_bus/modules/components/button/button.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/modules/components/text_input/text_input.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
-import 'package:avoid_keyboard/avoid_keyboard.dart';
 
 class RechargeUserCardPage extends StatelessWidget {
   const RechargeUserCardPage({Key? key}) : super(key: key);
