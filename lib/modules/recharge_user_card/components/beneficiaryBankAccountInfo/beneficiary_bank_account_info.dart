@@ -3,10 +3,10 @@ import 'package:izi_bus/shared/themes/app_colors.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 
 class BankAccountInfo {
+  String bankName = "Banco do Brasil";
+  String bankNumber = "001";
   String account = "1234567-8";
   String agency = "1011";
-  String cnpj = "45.142.125/0001-94";
-  String ownerName = "Cinglair Capello";
 }
 
 class BeneficiaryBankAccountInfo extends StatelessWidget {
@@ -35,6 +35,20 @@ class BeneficiaryBankAccountInfo extends StatelessWidget {
                   children: [
                     RichText(
                         text: TextSpan(
+                            text: "Banco: ", style: TextStyles.mediumBoldText)),
+                    RichText(
+                        text: TextSpan(
+                            text: bankAccountInfo.bankNumber +
+                                " - " +
+                                bankAccountInfo.bankName,
+                            style: TextStyles.mediumText))
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    RichText(
+                        text: TextSpan(
                             text: "Conta: ", style: TextStyles.mediumBoldText)),
                     RichText(
                         text: TextSpan(
@@ -55,31 +69,6 @@ class BeneficiaryBankAccountInfo extends StatelessWidget {
                             style: TextStyles.mediumText))
                   ],
                 ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    RichText(
-                        text: TextSpan(
-                            text: "CNPJ: ", style: TextStyles.mediumBoldText)),
-                    RichText(
-                        text: TextSpan(
-                            text: bankAccountInfo.cnpj,
-                            style: TextStyles.mediumText))
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    RichText(
-                        text: TextSpan(
-                            text: "Titular: ",
-                            style: TextStyles.mediumBoldText)),
-                    RichText(
-                        text: TextSpan(
-                            text: bankAccountInfo.ownerName,
-                            style: TextStyles.mediumText))
-                  ],
-                )
               ],
             ),
           ))
