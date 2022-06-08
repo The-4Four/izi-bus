@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/buses.temp.dart';
@@ -7,8 +6,6 @@ import 'package:izi_bus/modules/components/button/button.dart';
 import 'package:izi_bus/modules/components/stops.temp.dart';
 import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/modules/stops_page/stops_page.dart';
-import 'package:izi_bus/shared/themes/app_colors.dart';
-import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:izi_bus/utils/custom_marker_icon.dart';
 

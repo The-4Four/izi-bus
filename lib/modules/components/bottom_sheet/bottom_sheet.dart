@@ -4,7 +4,8 @@ import 'package:izi_bus/shared/themes/app_colors.dart';
 class CustomBottomSheet extends StatefulWidget {
   final Widget child;
 
-  const CustomBottomSheet({Key? key, required this.child}) : super(key: key);
+  const CustomBottomSheet({Key? key, required this.child, req})
+      : super(key: key);
 
   @override
   State<CustomBottomSheet> createState() => _CustomBottomSheetState();
@@ -13,16 +14,20 @@ class CustomBottomSheet extends StatefulWidget {
 class _CustomBottomSheetState extends State<CustomBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.75,
-      clipBehavior: Clip.antiAlias,
-      decoration: const BoxDecoration(
-          color: AppColors.background,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
-      child: Column(
-        children: [bottomSheetLine(context), widget.child],
-      ),
+    return Wrap(
+      children: <Widget>[
+        Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: const BoxDecoration(
+              color: AppColors.background,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0))),
+          child: Column(
+            children: [bottomSheetLine(context), widget.child],
+          ),
+        )
+      ],
     );
   }
 

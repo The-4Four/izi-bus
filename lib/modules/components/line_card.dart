@@ -35,7 +35,7 @@ class _LineCardState extends State<LineCard> {
       children: [
         ListView.builder(
             shrinkWrap: true,
-            scrollDirection: Axis.vertical,
+            physics: const ClampingScrollPhysics(),
             itemBuilder: (context, index) =>
                 _buildScheduleItem(widget.schedules[index]),
             itemCount: widget.schedules.length)
