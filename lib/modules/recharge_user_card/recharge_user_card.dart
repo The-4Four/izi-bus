@@ -63,14 +63,16 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
             ),
             TextInput(
                 placeholder: "Valor",
-                validator: (String? value) {},
+                validator: (String? value) {
+                  return null;
+                },
                 textInputType: TextInputType.number),
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Button(
                     text: "Forma de pagamento",
                     onPressed: () {
-                      showModalBottomSheet(
+                      showModalBottomSheet<dynamic>(
                           context: context,
                           isScrollControlled: true,
                           shape: const RoundedRectangleBorder(
