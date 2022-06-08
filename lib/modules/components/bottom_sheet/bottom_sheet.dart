@@ -4,8 +4,7 @@ import 'package:izi_bus/shared/themes/app_colors.dart';
 class CustomBottomSheet extends StatefulWidget {
   final Widget child;
 
-  const CustomBottomSheet({Key? key, required this.child, req})
-      : super(key: key);
+  const CustomBottomSheet({Key? key, required this.child}) : super(key: key);
 
   @override
   State<CustomBottomSheet> createState() => _CustomBottomSheetState();
