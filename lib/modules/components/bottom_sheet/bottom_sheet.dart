@@ -13,16 +13,20 @@ class CustomBottomSheet extends StatefulWidget {
 class _CustomBottomSheetState extends State<CustomBottomSheet> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.75,
-      clipBehavior: Clip.antiAlias,
-      decoration: const BoxDecoration(
-          color: AppColors.background,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0))),
-      child: Column(
-        children: [bottomSheetLine(context), widget.child],
-      ),
+    return Wrap(
+      children: <Widget>[
+        Container(
+          clipBehavior: Clip.antiAlias,
+          decoration: const BoxDecoration(
+              color: AppColors.background,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0))),
+          child: Column(
+            children: [bottomSheetLine(context), widget.child],
+          ),
+        )
+      ],
     );
   }
 

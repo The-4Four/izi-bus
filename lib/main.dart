@@ -16,7 +16,7 @@ class AppWidget extends StatelessWidget {
       theme: ThemeData(
         primaryColor: AppColors.primary,
       ),
-      initialRoute: '/',
+      initialRoute: '/recharge_user_card',
       //home: const Home(),
       onGenerateRoute: Routes.generateRoute,
     );
