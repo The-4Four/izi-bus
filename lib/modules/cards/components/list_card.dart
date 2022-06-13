@@ -37,7 +37,7 @@ class _ListCardState extends State<ListCard> {
               ),
             ],
           ),
-          Text("RS " + widget.value, style: TextStyles.smallText),
+          Text("R\$ " + widget.value, style: TextStyles.smallText),
         ],
       ),
     );

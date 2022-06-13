@@ -16,11 +16,6 @@ class Cards extends StatefulWidget {
 class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
-    final Widget busSvg = SvgPicture.asset(
-      'lib/assets/vector.svg',
-      semanticsLabel: 'Bus',
-      height: 60,
-    );
     Widget _buildCard(item) {
       return ListCard(
           id: item['id'], nameCard: item['name_card'], value: item['value']);
@@ -29,7 +24,7 @@ class _CardsState extends State<Cards> {
     Widget getCards() {
       final Widget emptySvg =
           SvgPicture.asset('lib/assets/empty_card.svg', semanticsLabel: 'Izi');
-      if (1 == 1) {
+      if (1 == 0) {
         return Column(children: [
           Padding(
             padding: const EdgeInsets.only(right: 8, top: 24),

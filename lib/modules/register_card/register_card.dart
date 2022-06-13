@@ -11,9 +11,9 @@ class RegisterCard extends StatefulWidget {
   State<RegisterCard> createState() => _RegisterCardState();
 }
 
-String? _validarNome(String? value) {
+String? _validateName(String? value) {
   String patttern = r'(^[a-zA-Z ]*$)';
-  RegExp regExp = new RegExp(patttern);
+  RegExp regExp = RegExp(patttern);
   if (value?.length != null) {
     return "Informe o nome";
   } else if (!regExp.hasMatch(value!)) {
@@ -56,21 +56,21 @@ class _RegisterCardState extends State<RegisterCard> {
                           padding: EdgeInsets.all(8.0),
                           child: TextInput(
                             placeholder: "Seu Cpf",
-                            validator: _validarNome,
+                            validator: _validateName,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.all(8.0),
                           child: TextInput(
                             placeholder: "ID do cartão",
-                            validator: _validarNome,
+                            validator: _validateName,
                           ),
                         ),
                         Padding(
                           padding: EdgeInsets.all(8.0),
                           child: TextInput(
                             placeholder: "Nome do cartão",
-                            validator: _validarNome,
+                            validator: _validateName,
                           ),
                         ),
                       ]),
