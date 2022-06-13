@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:izi_bus/modules/cards/components/editCard.dart';
+import 'package:izi_bus/modules/cards/components/card_actions.dart';
 import 'package:izi_bus/modules/cards/components/list_card.dart';
 import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
@@ -105,7 +103,7 @@ class _CardsState extends State<Cards> {
                                         top: Radius.circular(16))),
                                 builder: (context) {
                                   return const CustomBottomSheet(
-                                      child: EditCard());
+                                      child: CardActions());
                                 });
                           },
                           child: getCards(),

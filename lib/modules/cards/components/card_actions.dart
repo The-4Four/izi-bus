@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
 
-class EditCard extends StatelessWidget {
-  const EditCard({Key? key}) : super(key: key);
+class CardActions extends StatelessWidget {
+  const CardActions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
