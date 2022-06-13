@@ -40,6 +40,8 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   flutter_svg: ^1.0.3
   geolocator: ^8.2.1
+  flutter_svg: ^1.0.3
+  flare_flutter: ^3.0.2
 
 dev_dependencies:
   flutter_test:
@@ -61,7 +63,8 @@ flutter:
     - lib/assets/bus_icon.png
     - lib/assets/pin_icon.png
     - lib/assets/empty_card.svg
-    
+    - lib/assets/izibus-logo.svg
+    - lib/assets/bus-logo.svg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
