@@ -40,7 +40,6 @@ dependencies:
   flutter_polyline_points: ^1.0.0
   flutter_svg: ^1.0.3
   geolocator: ^8.2.1
-  flutter_svg: ^1.0.3
   flare_flutter: ^3.0.2
 
 dev_dependencies:
