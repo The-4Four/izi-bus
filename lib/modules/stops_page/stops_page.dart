@@ -11,12 +11,11 @@ class StopsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var text = Text(stopName, style: TextStyles.cardTitle);
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.75,
       child: Column(children: [
-        Padding(
-            child: Text(stopName, style: TextStyles.cardTitle),
-            padding: const EdgeInsets.only(bottom: 32)),
+        Padding(child: text, padding: const EdgeInsets.only(bottom: 32)),
         Expanded(
           child: ListView.separated(
               shrinkWrap: true,
