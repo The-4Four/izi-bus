@@ -61,8 +61,8 @@ flutter:
   assets:
     - lib/assets/bus_icon.png
     - lib/assets/pin_icon.png
-    - lib/assets/iziBus.svg
-    - lib/assets/vector.svg
+    - lib/assets/izibus-logo.svg
+    - lib/assets/bus-logo.svg
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

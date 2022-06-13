@@ -20,12 +20,12 @@ class _HomePageState extends State<HomeController> {
   @override
   Widget build(BuildContext context) {
     final Widget busSvg = SvgPicture.asset(
-      'lib/assets/vector.svg',
+      'lib/assets/bus-logo.svg',
       semanticsLabel: 'Bus',
       height: 60,
     );
     final Widget iziSvg =
-        SvgPicture.asset('lib/assets/iziBus.svg', semanticsLabel: 'Izi');
+        SvgPicture.asset('lib/assets/izibus-logo.svg', semanticsLabel: 'Izi');
 
     return Scaffold(
         body: Column(

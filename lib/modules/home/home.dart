@@ -64,7 +64,6 @@ class _HomeState extends State<Home> {
           _directions.length,
           directions.polylinePoints
               .map((e) => LatLng(e.latitude, e.longitude)));
-      print("em cima");
     }
     setState(() {});
   }
