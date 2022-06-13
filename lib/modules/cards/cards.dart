@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:izi_bus/modules/cards/components/editCard.dart';
 import 'package:izi_bus/modules/cards/components/list_card.dart';
+import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
 import 'package:izi_bus/modules/components/card.temp.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
@@ -91,7 +95,21 @@ class _CardsState extends State<Cards> {
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        getCards(),
+                        GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet<dynamic>(
+                                context: context,
+                                isScrollControlled: true,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(16))),
+                                builder: (context) {
+                                  return const CustomBottomSheet(
+                                      child: EditCard());
+                                });
+                          },
+                          child: getCards(),
+                        )
                       ]),
                 ],
               ),
@@ -100,7 +118,9 @@ class _CardsState extends State<Cards> {
                   alignment: FractionalOffset.bottomCenter,
                   child: Button(
                     text: "Cadastrar Cartão",
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/register_card");
+                    },
                   ),
                 ),
               ),
