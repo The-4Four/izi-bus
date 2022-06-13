@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:izi_bus/shared/themes/app_colors.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 
 class ListCard extends StatefulWidget {

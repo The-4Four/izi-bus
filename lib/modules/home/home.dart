@@ -44,7 +44,6 @@ class _HomeState extends State<Home> {
     _directions.clear();
     List<String> st = <String>[];
     List<int> stop = <int>[];
-    List<LatLng> teste = <LatLng>[];
     Directions directions;
     dynamic bus = buses.indexWhere((element) => element['id'] == id);
     for (var stop in buses[bus]['ponts']) {
@@ -134,6 +133,7 @@ class _HomeState extends State<Home> {
             mapType: MapType.normal,
             initialCameraPosition: _initialCameraPosition,
             zoomGesturesEnabled: true,
+            zoomControlsEnabled: false,
             myLocationButtonEnabled: true,
             rotateGesturesEnabled: true,
             tiltGesturesEnabled: true,
@@ -168,6 +168,26 @@ class _HomeState extends State<Home> {
                       });
                 },
               )),
+          Expanded(
+              child: Align(
+                  alignment: Alignment.topRight,
+                  child: GestureDetector(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16.0, top: 36),
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            color: AppColors.secondary,
+                          ),
+                          width: 40,
+                          height: 40,
+                          child: const Icon(Icons.add_card,
+                              size: 16, color: AppColors.background)),
+                    ),
+                    onTap: () {
+                      Navigator.pushNamed(context, "/card");
+                    },
+                  )))
         ],
       ),
     );
