@@ -11,22 +11,24 @@ class StopsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    var text = Text(stopName, style: TextStyles.cardTitle);
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.75,
       child: Column(children: [
-        Padding(
-            child: Text(stopName, style: TextStyles.cardTitle),
-            padding: EdgeInsets.only(bottom: 32)),
-        ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) => _buildLineCard(lines[index]),
-            separatorBuilder: (context, index) => const Divider(
-                  thickness: 1,
-                  indent: 16,
-                  endIndent: 16,
-                  color: AppColors.divider,
-                ),
-            itemCount: lines.length),
+        Padding(child: text, padding: const EdgeInsets.only(bottom: 32)),
+        Expanded(
+          child: ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) => _buildLineCard(lines[index]),
+              separatorBuilder: (context, index) => const Divider(
+                    thickness: 1,
+                    indent: 16,
+                    endIndent: 16,
+                    color: AppColors.divider,
+                  ),
+              itemCount: lines.length),
+        ),
       ]),
     );
   }
