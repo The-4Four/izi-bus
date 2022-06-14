@@ -38,6 +38,11 @@ class TextStyles {
     fontWeight: FontWeight.w200,
     color: AppColors.inputPlaceholder,
   );
+  static final socialLoginText = GoogleFonts.outfit(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: AppColors.inputPlaceholder,
+      letterSpacing: 1.0);
   static final listFirst = GoogleFonts.outfit(
     fontSize: 16,
     fontWeight: FontWeight.w600,
