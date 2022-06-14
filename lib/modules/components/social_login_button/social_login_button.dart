@@ -3,7 +3,8 @@ import 'package:izi_bus/shared/themes/app_images.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 
 class SocialLoginButton extends StatelessWidget {
-  const SocialLoginButton({Key? key}) : super(key: key);
+  final VoidCallback onPress;
+  const SocialLoginButton({Key? key, required this.onPress}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class SocialLoginButton extends StatelessWidget {
             ),
           ]),
       child: TextButton(
-          onPressed: () {},
+          onPressed: onPress,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

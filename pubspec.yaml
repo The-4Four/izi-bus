@@ -41,6 +41,9 @@ dependencies:
   flutter_svg: ^1.0.3
   geolocator: ^8.2.1
   flare_flutter: ^3.0.2
+  shared_preferences: ^2.0.15
+  google_sign_in: ^5.3.3
+  firebase_core: ^1.17.1
 
 dev_dependencies:
   flutter_test:
