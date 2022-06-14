@@ -20,7 +20,7 @@ class RechargeUserCardPage extends StatefulWidget {
 }
 
 class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
-  final PaymentType selectedPaymentType = PaymentType.none;
+  PaymentType selectedPaymentType = PaymentType.none;
   final formKey = GlobalKey<FormState>();
   bool finishedButtonDisabled = true;
 
@@ -35,9 +35,20 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
         finishedButtonDisabled = false;
       });
       return BeneficiaryBankAccountInfo();
+    } else if (selectedPaymentType == PaymentType.creditCard) {
+      setState(() {
+        finishedButtonDisabled = false;
+      });
     }
 
     return Container();
+  }
+
+  void refresh(dynamic childValue) {
+    setState(() {
+      selectedPaymentType = childValue;
+      finishedButtonDisabled = false;
+    });
   }
 
   @override
@@ -76,6 +87,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                     if (!isValidCurrency(value) && !isNumber(value)) {
                       return "Campo incorreto";
                     }
+                    return null;
                   },
                   textInputType: TextInputType.number),
               Padding(
@@ -90,11 +102,13 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                                 borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(16))),
                             builder: (context) {
-                              return const CustomBottomSheet(
-                                  child: PaymentTypeBottomSheet());
+                              return CustomBottomSheet(
+                                  child: PaymentTypeBottomSheet(
+                                notifyParent: refresh,
+                              ));
                             });
                       })),
-              Container(child: getPaymentTypeWidget(context)),
+              getPaymentTypeWidget(context),
               Expanded(
                 child: Align(
                   alignment: FractionalOffset.bottomCenter,
