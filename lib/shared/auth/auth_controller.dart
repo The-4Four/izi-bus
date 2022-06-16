@@ -4,15 +4,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController {
   bool userIsAuthenticated = false;
-  UserModel? user;
+  UserModel? _user;
 
   void setUser(BuildContext context, UserModel? user) {
     if (user != null) {
       saveUser(user);
-      user = user;
+      _user = user;
       userIsAuthenticated = true;
 
-      Navigator.pushReplacementNamed(context, "/home");
+      Navigator.pushReplacementNamed(context, "/");
     } else {
       userIsAuthenticated = false;
 

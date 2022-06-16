@@ -34,7 +34,7 @@ class AppWidget extends StatelessWidget {
             theme: ThemeData(
               primaryColor: AppColors.primary,
             ),
-            initialRoute: '/login',
+            initialRoute: '/splash',
             //home: const Home(),
             onGenerateRoute: Routes.generateRoute,
           );
