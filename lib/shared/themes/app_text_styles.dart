@@ -9,7 +9,7 @@ class TextStyles {
     color: AppColors.textPrimary,
   );
   static final cardTitle = GoogleFonts.outfit(
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
   );

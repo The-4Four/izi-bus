@@ -13,15 +13,22 @@ class CreditCard extends StatefulWidget {
 class _CreditCardState extends State<CreditCard> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: Icon(Icons.credit_card, size: 24, color: AppColors.primary)),
-        Text(widget.name, style: TextStyles.cardTitle),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: SizedBox(
+        height: 48,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: Icon(Icons.credit_card,
+                    size: 24, color: AppColors.primary)),
+            Text(widget.name, style: TextStyles.cardTitle),
+          ],
+        ),
+      ),
     );
   }
 }
