@@ -26,6 +26,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
   String buttonText = 'FORMA DE PAGAMENTO';
   bool finishedButtonDisabled = true;
   int selectedCardIndex = -1;
+  final textFieldController = TextEditingController();
 
   Widget getPaymentTypeWidget(context) {
     if (selectedPaymentType == PaymentType.pix) {
@@ -57,7 +58,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
       } else if (selectedPaymentType == PaymentType.creditCard) {
         if (creditCardIndex != null) {
           selectedCardIndex = creditCardIndex;
-          buttonText = cards.elementAt(creditCardIndex)['name'];
+          buttonText = creditCards.elementAt(creditCardIndex).name;
         } else {
           selectedCardIndex = -1;
           buttonText = 'CARTÃO DE CRÉDITO';
@@ -97,6 +98,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
               ),
               TextInput(
                   placeholder: "Valor",
+                  controller: textFieldController,
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return "Esse campo é obrigatório";

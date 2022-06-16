@@ -15,15 +15,17 @@ class CreditCardBottomSheet extends StatefulWidget {
 
 class _CreditCardBottomSheetState extends State<CreditCardBottomSheet> {
   Widget getCardList(context) {
-    if (cards.isNotEmpty) {
-      return SizedBox(
+    if (creditCards.isNotEmpty) {
+      return Container(
+        constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.75),
         child: Expanded(
           child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) =>
-                  _buildLineCard(cards[index], index),
-              itemCount: cards.length),
+                  _buildLineCard(creditCards[index], index),
+              itemCount: creditCards.length),
         ),
       );
     } else {
@@ -32,12 +34,24 @@ class _CreditCardBottomSheetState extends State<CreditCardBottomSheet> {
     }
   }
 
-  Widget _buildLineCard(item, int index) {
+  void refresh() {
+    setState(() {});
+  }
+
+  Widget _buildLineCard(CreditCardList item, int index) {
     return CreditCard(
-      name: item['name'],
+      name: item.name,
       index: index,
       notifyParent: widget.notifyParent,
     );
+  }
+
+// Essa função aguarda o resultado do cadastro do cartão para atualizar o bottom sheet
+  Future<void> _navigateToRegisterCreditCard(BuildContext context) async {
+    final result = await Navigator.pushNamed(context, "/register_credit_card");
+    if (result == 'Success') {
+      refresh();
+    }
   }
 
   @override
@@ -51,7 +65,9 @@ class _CreditCardBottomSheetState extends State<CreditCardBottomSheet> {
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Button(
               text: "Cadastrar um novo cartão",
-              onPressed: () {},
+              onPressed: () {
+                _navigateToRegisterCreditCard(context);
+              },
             ),
           ),
         ],
