@@ -34,28 +34,6 @@ const List lines = [
     ],
   },
   {
-    "code": "107",
-    "description": "Veneza - UTFPR - UNIDEP",
-    "schedules": [
-      {"spot": "CDIP", "time": "12:00"},
-      {"spot": "Casa do Artesão", "time": "12:05"},
-      {"spot": "Pavilhão São Pedro", "time": "12:10"},
-      {"spot": "Ampernet", "time": "12:15"},
-      {"spot": "Posto GP", "time": "12:20"}
-    ],
-  },
-  {
-    "code": "109",
-    "description": "Planalto - Rua Xingu",
-    "schedules": [
-      {"spot": "CDIP", "time": "12:00"},
-      {"spot": "Casa do Artesão", "time": "12:05"},
-      {"spot": "Pavilhão São Pedro", "time": "12:10"},
-      {"spot": "Ampernet", "time": "12:15"},
-      {"spot": "Posto GP", "time": "12:20"}
-    ],
-  },
-  {
     "code": "109",
     "description": "Planalto - Rua Xingu",
     "schedules": [
