@@ -22,15 +22,17 @@ class _PaymentTypeBottomSheetState extends State<PaymentTypeBottomSheet> {
         children: [
           Button(
             text: "Pix",
-            onPressed: () =>
-                {widget.notifyParent(PaymentType.pix), Navigator.pop(context)},
+            onPressed: () => {
+              widget.notifyParent(PaymentType.pix, null),
+              Navigator.pop(context)
+            },
             variant: "transparent",
           ),
           const SizedBox(height: 12),
           Button(
             text: "Cartão de crédito",
             onPressed: () => {
-              widget.notifyParent(PaymentType.creditCard),
+              widget.notifyParent(PaymentType.creditCard, null),
               Navigator.pop(context),
               showModalBottomSheet<dynamic>(
                   context: context,
@@ -39,8 +41,9 @@ class _PaymentTypeBottomSheetState extends State<PaymentTypeBottomSheet> {
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(16))),
                   builder: (context) {
-                    return const CustomBottomSheet(
-                        child: CreditCardBottomSheet());
+                    return CustomBottomSheet(
+                        child: CreditCardBottomSheet(
+                            notifyParent: widget.notifyParent));
                   })
             },
             variant: "transparent",
@@ -49,7 +52,7 @@ class _PaymentTypeBottomSheetState extends State<PaymentTypeBottomSheet> {
           Button(
             text: "Transferência",
             onPressed: () => {
-              widget.notifyParent(PaymentType.transfer),
+              widget.notifyParent(PaymentType.transfer, null),
               Navigator.pop(context)
             },
             variant: "transparent",

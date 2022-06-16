@@ -5,34 +5,41 @@ import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/modules/components/credit_card_info.temp.dart';
 
 class CreditCardBottomSheet extends StatefulWidget {
-  const CreditCardBottomSheet({Key? key}) : super(key: key);
+  final Function notifyParent;
+  const CreditCardBottomSheet({Key? key, required this.notifyParent})
+      : super(key: key);
 
   @override
   State<CreditCardBottomSheet> createState() => _CreditCardBottomSheetState();
 }
 
-Widget getCardList(context) {
-  if (cards.isNotEmpty) {
-    return SizedBox(
-      child: Expanded(
-        child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (context, index) => _buildLineCard(cards[index]),
-            itemCount: cards.length),
-      ),
-    );
-  } else {
-    return Text("Nenhum cartão de crédito cadastrado",
-        style: TextStyles.mediumTextBlack);
-  }
-}
-
-Widget _buildLineCard(item) {
-  return CreditCard(name: item['name']);
-}
-
 class _CreditCardBottomSheetState extends State<CreditCardBottomSheet> {
+  Widget getCardList(context) {
+    if (cards.isNotEmpty) {
+      return SizedBox(
+        child: Expanded(
+          child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) =>
+                  _buildLineCard(cards[index], index),
+              itemCount: cards.length),
+        ),
+      );
+    } else {
+      return Text("Nenhum cartão de crédito cadastrado",
+          style: TextStyles.mediumTextBlack);
+    }
+  }
+
+  Widget _buildLineCard(item, int index) {
+    return CreditCard(
+      name: item['name'],
+      index: index,
+      notifyParent: widget.notifyParent,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(

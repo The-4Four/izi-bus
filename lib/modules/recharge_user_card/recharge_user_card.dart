@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
+import 'package:izi_bus/modules/components/credit_card_info.temp.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/beneficiaryBankAccountInfo/beneficiary_bank_account_info.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/paymentTypeBottomSheet/payment_type_bottom_sheet.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/pixClipBoard/pix_clip_board.dart';
@@ -25,6 +26,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
   final formKey = GlobalKey<FormState>();
   String buttonText = 'FORMA DE PAGAMENTO';
   bool finishedButtonDisabled = true;
+  late int selectedCardIndex;
 
   Widget getPaymentTypeWidget(context) {
     if (selectedPaymentType == PaymentType.pix) {
@@ -47,15 +49,20 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
     return Container();
   }
 
-  void refresh(dynamic childValue) {
+  void refresh(dynamic childValue, int? creditCardIndex) {
     setState(() {
       selectedPaymentType = childValue;
       if (selectedPaymentType == PaymentType.pix) {
         buttonText = 'PIX';
       } else if (selectedPaymentType == PaymentType.transfer) {
         buttonText = 'TRANSFERÊNCIA';
-      } else if (selectedPaymentType == PaymentType.pix) {
-        buttonText = 'CARTÃO DE CRÉDITO';
+      } else if (selectedPaymentType == PaymentType.creditCard) {
+        if (creditCardIndex != null) {
+          selectedCardIndex = creditCardIndex;
+          buttonText = cards.elementAt(creditCardIndex)['name'];
+        } else {
+          buttonText = 'CARTÃO DE CRÉDITO';
+        }
       } else {
         buttonText = 'FORMA DE PAGAMENTO';
       }
@@ -66,7 +73,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.background,
       body: Padding(
         padding:
