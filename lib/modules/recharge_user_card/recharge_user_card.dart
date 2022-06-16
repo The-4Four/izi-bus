@@ -5,7 +5,6 @@ import 'package:izi_bus/modules/components/credit_card_info.temp.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/beneficiaryBankAccountInfo/beneficiary_bank_account_info.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/paymentTypeBottomSheet/payment_type_bottom_sheet.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/pixClipBoard/pix_clip_board.dart';
-// import 'package:izi_bus/modules/recharge_user_card/components/placeholderButton/placeholder_button.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/modules/components/text_input/text_input.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
@@ -26,7 +25,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
   final formKey = GlobalKey<FormState>();
   String buttonText = 'FORMA DE PAGAMENTO';
   bool finishedButtonDisabled = true;
-  late int selectedCardIndex;
+  int selectedCardIndex = -1;
 
   Widget getPaymentTypeWidget(context) {
     if (selectedPaymentType == PaymentType.pix) {
@@ -45,7 +44,6 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
       });
     }
 
-    selectedPaymentType = PaymentType.none;
     return Container();
   }
 
@@ -61,6 +59,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
           selectedCardIndex = creditCardIndex;
           buttonText = cards.elementAt(creditCardIndex)['name'];
         } else {
+          selectedCardIndex = -1;
           buttonText = 'CARTÃO DE CRÉDITO';
         }
       } else {
@@ -101,10 +100,16 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return "Esse campo é obrigatório";
-                    }
-
-                    if (!isValidCurrency(value) && !isNumber(value)) {
+                    } else if (!isValidCurrency(value) && !isNumber(value)) {
                       return "Campo incorreto";
+                    }
+                    if (selectedPaymentType == PaymentType.none) {
+                      return "Selecione uma forma de pagamento";
+                    } else {
+                      if (selectedPaymentType == PaymentType.creditCard &&
+                          selectedCardIndex == -1) {
+                        return "Selecione um cartão de crédito";
+                      }
                     }
                     return null;
                   },
