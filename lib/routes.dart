@@ -3,6 +3,7 @@ import 'package:izi_bus/modules/cards/cards.dart';
 import 'package:izi_bus/modules/home/home.dart';
 import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/modules/login/login_page.dart';
+import 'package:izi_bus/modules/recharge_user_card/credit_card/register_credit_card.dart';
 import 'package:izi_bus/modules/recharge_user_card/recharge_user_card.dart';
 import 'package:izi_bus/modules/register_card/register_card.dart';
 import 'package:izi_bus/modules/splash_screen/splash_screen.dart';
@@ -29,6 +30,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const RegisterCard());
       case '/card':
         return MaterialPageRoute(builder: (_) => const Cards());
+      case '/register_credit_card':
+        return MaterialPageRoute(builder: (_) => const RegisterCreditCard());
       default:
         return _errorRoute();
     }

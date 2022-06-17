@@ -8,8 +8,9 @@ class LinesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.75,
+    return Container(
+      constraints:
+          BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.75),
       child: Expanded(
         child: ListView.separated(
             shrinkWrap: true,
