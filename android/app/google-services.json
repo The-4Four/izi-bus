@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "784224444720",
+    "project_id": "izi-bus-df591",
+    "storage_bucket": "izi-bus-df591.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:784224444720:android:952b28f3f860ae8f9ce8f5",
+        "android_client_info": {
+          "package_name": "com.example.izi_bus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "784224444720-tudkbs0of6tlege5s9835gbi492nn3f4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe38xnn6Gf9Q4hqh4ADqVfbiQE-I6lORM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "784224444720-tudkbs0of6tlege5s9835gbi492nn3f4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

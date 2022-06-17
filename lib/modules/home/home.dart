@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/buses.temp.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
 import 'package:izi_bus/modules/components/directions_model.dart';
 import 'package:izi_bus/modules/components/stops.temp.dart';
+import 'package:izi_bus/modules/homeController/homeController.dart';
 import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/modules/stops_page/stops_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -25,6 +27,9 @@ class _HomeState extends State<Home> {
   final List<Marker> markers = <Marker>[];
   final List<LatLng> _directions = <LatLng>[];
 
+  final homeController = HomeController();
+  late Position _currentPosition;
+
   // Posição inicial do mapa
   static const _initialCameraPosition = CameraPosition(
     target: LatLng(-26.2295, -52.6716),
@@ -38,6 +43,12 @@ class _HomeState extends State<Home> {
     final GoogleMapController controller = await _controller.future;
     controller
         .animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
+  }
+
+  Future<void> _setUserInitialPosition() async {
+    setState(() {
+      _currentPosition = homeController.determinePosition() as Position;
+    });
   }
 
   Future<void> _onTapMarker(String id, double lat, double long) async {
@@ -137,7 +148,8 @@ class _HomeState extends State<Home> {
             myLocationButtonEnabled: true,
             rotateGesturesEnabled: true,
             tiltGesturesEnabled: true,
-            onMapCreated: (GoogleMapController controller) {
+            onMapCreated: (GoogleMapController controller) async {
+              await _setUserInitialPosition();
               _setMapInitialPosition();
               _addInitialMarkers();
               _controller.complete(controller);
