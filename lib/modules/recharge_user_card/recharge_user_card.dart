@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
+import 'package:izi_bus/modules/components/credit_card_info.temp.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/beneficiaryBankAccountInfo/beneficiary_bank_account_info.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/paymentTypeBottomSheet/payment_type_bottom_sheet.dart';
 import 'package:izi_bus/modules/recharge_user_card/components/pixClipBoard/pix_clip_board.dart';
@@ -20,9 +21,12 @@ class RechargeUserCardPage extends StatefulWidget {
 }
 
 class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
-  final PaymentType selectedPaymentType = PaymentType.none;
+  PaymentType selectedPaymentType = PaymentType.none;
   final formKey = GlobalKey<FormState>();
+  String buttonText = 'FORMA DE PAGAMENTO';
   bool finishedButtonDisabled = true;
+  int selectedCardIndex = -1;
+  final textFieldController = TextEditingController();
 
   Widget getPaymentTypeWidget(context) {
     if (selectedPaymentType == PaymentType.pix) {
@@ -35,15 +39,41 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
         finishedButtonDisabled = false;
       });
       return BeneficiaryBankAccountInfo();
+    } else if (selectedPaymentType == PaymentType.creditCard) {
+      setState(() {
+        finishedButtonDisabled = false;
+      });
     }
 
     return Container();
   }
 
+  void changePaymentTypeButtonText(dynamic childValue, int? creditCardIndex) {
+    setState(() {
+      selectedPaymentType = childValue;
+      if (selectedPaymentType == PaymentType.pix) {
+        buttonText = 'PIX';
+      } else if (selectedPaymentType == PaymentType.transfer) {
+        buttonText = 'TRANSFERÊNCIA';
+      } else if (selectedPaymentType == PaymentType.creditCard) {
+        if (creditCardIndex != null) {
+          selectedCardIndex = creditCardIndex;
+          buttonText = creditCards.elementAt(creditCardIndex).name;
+        } else {
+          selectedCardIndex = -1;
+          buttonText = 'CARTÃO DE CRÉDITO';
+        }
+      } else {
+        buttonText = 'FORMA DE PAGAMENTO';
+      }
+      finishedButtonDisabled = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.background,
       body: Padding(
         padding:
@@ -68,20 +98,28 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
               ),
               TextInput(
                   placeholder: "Valor",
+                  controller: textFieldController,
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return "Esse campo é obrigatório";
-                    }
-
-                    if (!isValidCurrency(value) && !isNumber(value)) {
+                    } else if (!isValidCurrency(value) && !isNumber(value)) {
                       return "Campo incorreto";
                     }
+                    if (selectedPaymentType == PaymentType.none) {
+                      return "Selecione uma forma de pagamento";
+                    } else {
+                      if (selectedPaymentType == PaymentType.creditCard &&
+                          selectedCardIndex == -1) {
+                        return "Selecione um cartão de crédito";
+                      }
+                    }
+                    return null;
                   },
                   textInputType: TextInputType.number),
               Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Button(
-                      text: "Forma de pagamento",
+                      text: buttonText,
                       onPressed: () {
                         showModalBottomSheet<dynamic>(
                             context: context,
@@ -90,11 +128,13 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                                 borderRadius: BorderRadius.vertical(
                                     top: Radius.circular(16))),
                             builder: (context) {
-                              return const CustomBottomSheet(
-                                  child: PaymentTypeBottomSheet());
+                              return CustomBottomSheet(
+                                  child: PaymentTypeBottomSheet(
+                                notifyParent: changePaymentTypeButtonText,
+                              ));
                             });
                       })),
-              Container(child: getPaymentTypeWidget(context)),
+              getPaymentTypeWidget(context),
               Expanded(
                 child: Align(
                   alignment: FractionalOffset.bottomCenter,
