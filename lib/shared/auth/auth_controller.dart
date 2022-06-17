@@ -32,7 +32,7 @@ class AuthController {
     await Future.delayed(const Duration(seconds: 2));
 
     if (instance.containsKey('user')) {
-      final foundUser = await instance.getString("user") as String;
+      final foundUser = instance.getString("user") as String;
       setUser(context, UserModel.fromJson(foundUser));
       return;
     }

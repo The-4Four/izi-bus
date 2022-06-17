@@ -15,8 +15,9 @@ import 'package:izi_bus/utils/custom_marker_icon.dart';
 import '../../shared/themes/app_colors.dart';
 import '../components/directions_repository.dart';
 
-// ignore: use_key_in_widget_constructors
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -46,8 +47,9 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> _setUserInitialPosition() async {
+    Position position = await homeController.determinePosition() as Position;
     setState(() {
-      _currentPosition = homeController.determinePosition() as Position;
+      _currentPosition = position;
     });
   }
 
