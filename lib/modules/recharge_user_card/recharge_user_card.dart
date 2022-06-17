@@ -48,7 +48,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
     return Container();
   }
 
-  void refresh(dynamic childValue, int? creditCardIndex) {
+  void changePaymentTypeButtonText(dynamic childValue, int? creditCardIndex) {
     setState(() {
       selectedPaymentType = childValue;
       if (selectedPaymentType == PaymentType.pix) {
@@ -130,7 +130,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                             builder: (context) {
                               return CustomBottomSheet(
                                   child: PaymentTypeBottomSheet(
-                                notifyParent: refresh,
+                                notifyParent: changePaymentTypeButtonText,
                               ));
                             });
                       })),

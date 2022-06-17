@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
-import 'package:izi_bus/modules/recharge_user_card/credit_card/credit_card.dart';
+import 'package:izi_bus/modules/recharge_user_card/credit_card/credit_card_button.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/modules/components/credit_card_info.temp.dart';
 
@@ -39,7 +39,7 @@ class _CreditCardBottomSheetState extends State<CreditCardBottomSheet> {
   }
 
   Widget _buildLineCard(CreditCardList item, int index) {
-    return CreditCard(
+    return CreditCardButton(
       name: item.name,
       index: index,
       notifyParent: widget.notifyParent,
