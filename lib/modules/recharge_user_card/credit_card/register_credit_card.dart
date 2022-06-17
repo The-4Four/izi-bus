@@ -37,16 +37,14 @@ class _RegisterCreditCardState extends State<RegisterCreditCard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.background,
       body: Padding(
-        padding:
-            const EdgeInsets.only(top: 72, left: 24, right: 24, bottom: 40),
-        child: Form(
-          key: formKey,
+          padding:
+              const EdgeInsets.only(top: 72, left: 24, right: 24, bottom: 40),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
                 child: const Icon(Icons.arrow_back, size: 32),
@@ -67,48 +65,35 @@ class _RegisterCreditCardState extends State<RegisterCreditCard> {
                         text: "Informe os dados do seu cartão",
                         style: TextStyles.smallText)),
               ),
-              SizedBox(
-                height: 88,
-                child: TextInput(
-                  placeholder: "Apelido do cartão",
-                  controller: cardNameController,
-                  validator: _validateName,
-                ),
-              ),
-              SizedBox(
-                height: 88,
-                child: TextInput(
-                  placeholder: "Nome do titular",
-                  controller: cardHolderController,
-                  validator: _validateName,
-                ),
-              ),
-              SizedBox(
-                height: 88,
-                child: TextInput(
-                    placeholder: "Número do cartão",
-                    controller: idController,
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return "Esse campo é obrigatório";
-                      } else if (!isValidCurrency(value) && !isNumber(value)) {
-                        return "Campo incorreto";
-                      }
-                      return null;
-                    },
-                    textInputType: TextInputType.number),
-              ),
-              LayoutBuilder(builder: ((context, constraints) {
-                return Row(
-                  children: [
-                    SizedBox(
-                      width: constraints.maxWidth * 0.60,
-                      height: 88,
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 8),
+              Form(
+                  child: Expanded(
+                      child: SingleChildScrollView(
+                child: IntrinsicHeight(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
                         child: TextInput(
-                            placeholder: "Validade",
-                            controller: validityController,
+                          placeholder: "Apelido do cartão",
+                          controller: cardNameController,
+                          validator: _validateName,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: TextInput(
+                          placeholder: "Nome do titular",
+                          controller: cardHolderController,
+                          validator: _validateName,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: TextInput(
+                            placeholder: "Número do cartão",
+                            controller: idController,
                             validator: (String? value) {
                               if (value == null || value.isEmpty) {
                                 return "Esse campo é obrigatório";
@@ -120,53 +105,71 @@ class _RegisterCreditCardState extends State<RegisterCreditCard> {
                             },
                             textInputType: TextInputType.number),
                       ),
-                    ),
-                    SizedBox(
-                      width: constraints.maxWidth * 0.40,
-                      height: 88,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: TextInput(
-                            placeholder: "CVV",
-                            controller: cvvController,
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return "Esse campo é obrigatório";
-                              } else if (!isValidCurrency(value) &&
-                                  !isNumber(value)) {
-                                return "Campo incorreto";
-                              }
-                              return null;
-                            },
-                            textInputType: TextInputType.number),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 6,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 4, 4, 8),
+                              child: TextInput(
+                                  placeholder: "Validade (MM/AA)",
+                                  controller: idController,
+                                  validator: (String? value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Esse campo é obrigatório";
+                                    } else if (!isValidCurrency(value) &&
+                                        !isNumber(value)) {
+                                      return "Campo incorreto";
+                                    }
+                                    return null;
+                                  },
+                                  textInputType: TextInputType.datetime),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 4,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 4, 0, 8),
+                              child: TextInput(
+                                  placeholder: "CVV",
+                                  controller: idController,
+                                  validator: (String? value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Esse campo é obrigatório";
+                                    } else if (!isValidCurrency(value) &&
+                                        !isNumber(value)) {
+                                      return "Campo incorreto";
+                                    }
+                                    return null;
+                                  },
+                                  textInputType: TextInputType.number),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                );
-              })),
-              Expanded(
-                child: Align(
-                  alignment: FractionalOffset.bottomCenter,
-                  child: Button(
-                    text: "Cadastrar",
-                    onPressed: () {
-                      // Validar formulário de recarga de cartão
-                      if (formKey.currentState!.validate()) {
-                        creditCards.add(CreditCardList(
-                            name: cardNameController.text,
-                            holder: cardHolderController.text,
-                            id: idController.text,
-                            validity: validityController.text,
-                            securityCode: cvvController.text));
-                        Navigator.pop(context, 'Success');
-                      }
-                    },
-                    disabled: false,
+                    ],
                   ),
                 ),
-              )
+              ))),
             ],
-          ),
+          )),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(top: 0, left: 24, right: 24, bottom: 40),
+        child: Button(
+          text: "Cadastrar",
+          onPressed: () {
+            // Validar formulário de cadastro de cartão
+            if (formKey.currentState!.validate()) {
+              creditCards.add(CreditCardList(
+                  name: cardNameController.text,
+                  holder: cardHolderController.text,
+                  id: idController.text,
+                  validity: validityController.text,
+                  securityCode: cvvController.text));
+              Navigator.pop(context, 'Success');
+            }
+          },
+          disabled: false,
         ),
       ),
     );
