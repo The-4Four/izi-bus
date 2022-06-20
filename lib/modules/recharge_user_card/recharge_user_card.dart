@@ -31,17 +31,17 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
   Widget getPaymentTypeWidget(context) {
     if (selectedPaymentType == PaymentType.pix) {
       setState(() {
-        finishedButtonDisabled = false;
+        // finishedButtonDisabled = false;
       });
       return PixClipBoard(clipboardContext: context);
     } else if (selectedPaymentType == PaymentType.transfer) {
       setState(() {
-        finishedButtonDisabled = false;
+        // finishedButtonDisabled = false;
       });
       return BeneficiaryBankAccountInfo();
     } else if (selectedPaymentType == PaymentType.creditCard) {
       setState(() {
-        finishedButtonDisabled = false;
+        // finishedButtonDisabled = false;
       });
     }
 
@@ -53,25 +53,39 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
       selectedPaymentType = childValue;
       if (selectedPaymentType == PaymentType.pix) {
         buttonText = 'PIX';
+        finishedButtonDisabled = false;
       } else if (selectedPaymentType == PaymentType.transfer) {
         buttonText = 'TRANSFERÊNCIA';
+        finishedButtonDisabled = false;
       } else if (selectedPaymentType == PaymentType.creditCard) {
         if (creditCardIndex != null) {
           selectedCardIndex = creditCardIndex;
           buttonText = creditCards.elementAt(creditCardIndex).name;
+          finishedButtonDisabled = false;
         } else {
           selectedCardIndex = -1;
           buttonText = 'CARTÃO DE CRÉDITO';
+          finishedButtonDisabled = true;
         }
       } else {
         buttonText = 'FORMA DE PAGAMENTO';
+        finishedButtonDisabled = true;
       }
-      finishedButtonDisabled = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    Button _finishButton = Button(
+      text: "Finalizar recarga",
+      onPressed: () {
+        // Validar formulário de recarga de cartão
+        if (formKey.currentState!.validate()) {
+          Navigator.pushNamed(context, "/card");
+        }
+      },
+      disabled: finishedButtonDisabled,
+    );
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.background,
@@ -102,7 +116,9 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
                       return "Esse campo é obrigatório";
-                    } else if (!isValidCurrency(value) && !isNumber(value)) {
+                    } else if (!isValidCurrency(value) ||
+                        double.parse(value.replaceAll(RegExp(r','), '.')) <=
+                            0.0) {
                       return "Campo incorreto";
                     }
                     if (selectedPaymentType == PaymentType.none) {
@@ -113,6 +129,8 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
                         return "Selecione um cartão de crédito";
                       }
                     }
+
+                    // finishedButtonDisabled = false;
                     return null;
                   },
                   textInputType: TextInputType.number),
@@ -138,16 +156,7 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
               Expanded(
                 child: Align(
                   alignment: FractionalOffset.bottomCenter,
-                  child: Button(
-                    text: "Finalizar recarga",
-                    onPressed: () {
-                      // Validar formulário de recarga de cartão
-                      if (formKey.currentState!.validate()) {
-                        Navigator.pushNamed(context, "/");
-                      }
-                    },
-                    disabled: false,
-                  ),
+                  child: _finishButton,
                 ),
               )
             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:izi_bus/shared/themes/app_colors.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 
 class ListCard extends StatefulWidget {
@@ -25,7 +26,8 @@ class _ListCardState extends State<ListCard> {
             children: [
               const Padding(
                 padding: EdgeInsets.only(right: 8.0),
-                child: Icon(Icons.add_card_outlined),
+                child:
+                    Icon(Icons.credit_card_outlined, color: AppColors.primary),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

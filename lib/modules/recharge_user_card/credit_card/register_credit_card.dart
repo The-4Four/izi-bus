@@ -46,26 +46,44 @@ bool getMonthAndYear(String value) {
   DateTime now = DateTime.now();
   if (value.length == 4) {
     if ((int.parse(now.year.toString().substring(2, 4)) <=
-            int.parse(value.substring(2, 4))) &&
-        (now.month <= int.parse(value.substring(0, 2)))) {
+        int.parse(value.substring(2, 4)))) {
+      if ((int.parse(now.year.toString().substring(2, 4)) ==
+              int.parse(value.substring(2, 4))) &&
+          now.month > int.parse(value.substring(0, 2))) {
+        return false;
+      }
       return true;
     }
+    return false;
   } else if (value.length == 5) {
     if ((int.parse(now.year.toString().substring(2, 4)) <=
-            int.parse(value.substring(3, 5))) &&
-        (now.month <= int.parse(value.substring(0, 2)))) {
+        int.parse(value.substring(3, 5)))) {
+      if ((int.parse(now.year.toString().substring(2, 4)) ==
+              int.parse(value.substring(3, 5))) &&
+          now.month > int.parse(value.substring(0, 2))) {
+        return false;
+      }
       return true;
     }
+    return false;
   } else if (value.length == 6) {
-    if ((now.year <= int.parse(value.substring(2, 6))) &&
-        (now.month <= int.parse(value.substring(0, 2)))) {
+    if ((now.year <= int.parse(value.substring(2, 6)))) {
+      if (now.year == int.parse(value.substring(2, 6)) &&
+          now.month > int.parse(value.substring(0, 2))) {
+        return false;
+      }
       return true;
     }
+    return false;
   } else if (value.length == 7) {
-    if ((now.year <= int.parse(value.substring(3, 7))) &&
-        (now.month <= int.parse(value.substring(0, 2)))) {
+    if ((now.year <= int.parse(value.substring(3, 7)))) {
+      if (now.year == int.parse(value.substring(3, 7)) &&
+          now.month > int.parse(value.substring(0, 2))) {
+        return false;
+      }
       return true;
     }
+    return true;
   }
   return false;
 }
