@@ -8,6 +8,7 @@ import 'package:izi_bus/modules/components/stops.temp.dart';
 import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/modules/stops_page/stops_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/utils/custom_marker_icon.dart';
 
 import '../../shared/themes/app_colors.dart';
@@ -86,14 +87,7 @@ class _HomeState extends State<Home> {
             }),
       );
     }
-    markers.add(
-      Marker(
-        markerId: const MarkerId('user'),
-        icon: BitmapDescriptor.fromBytes(
-            await customMarkerIcon('lib/assets/bus_icon.png', 20)),
-        position: _initialCameraPosition.target,
-      ),
-    );
+
     for (var stop in stops) {
       markers.add(Marker(
           markerId: MarkerId(stop['id']),
@@ -117,6 +111,51 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 
+  static const String name = "Cinglair";
+
+  AppBar _appBar(height) => AppBar(
+        toolbarHeight: height,
+        flexibleSpace: Container(
+          color: AppColors.background,
+          child: Padding(
+            padding: const EdgeInsets.only(
+                top: 24, left: 24.0, right: 24.0, bottom: 0),
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text("Olá, ", style: TextStyles.listFirst),
+                          Text(
+                            name,
+                            style: TextStyles.mediumBoldText,
+                          )
+                        ],
+                      ),
+                      Text(
+                        "Para onde deseja ir hoje?",
+                        style: TextStyles.smallText,
+                      )
+                    ],
+                  ),
+                  const CircleAvatar(
+                    backgroundColor: AppColors.primary,
+                    radius: 25,
+                    child: CircleAvatar(
+                      radius: 24,
+                      backgroundImage:
+                          NetworkImage('https://picsum.photos/id/237/200/300'),
+                    ),
+                  ),
+                ]),
+          ),
+        ),
+      );
+
   @override
   void dispose() {
     _googleMapController.dispose();
@@ -126,6 +165,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _appBar(72.0),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -134,8 +174,10 @@ class _HomeState extends State<Home> {
             initialCameraPosition: _initialCameraPosition,
             zoomGesturesEnabled: true,
             zoomControlsEnabled: false,
-            myLocationButtonEnabled: true,
+            myLocationButtonEnabled: false,
             rotateGesturesEnabled: true,
+            myLocationEnabled: true,
+            trafficEnabled: false,
             tiltGesturesEnabled: true,
             onMapCreated: (GoogleMapController controller) {
               _setMapInitialPosition();
@@ -173,7 +215,7 @@ class _HomeState extends State<Home> {
                   alignment: Alignment.topRight,
                   child: GestureDetector(
                     child: Padding(
-                      padding: const EdgeInsets.only(right: 16.0, top: 36),
+                      padding: const EdgeInsets.only(right: 16.0, top: 8),
                       child: Container(
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(8)),
