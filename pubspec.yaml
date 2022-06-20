@@ -41,6 +41,9 @@ dependencies:
   flutter_svg: ^1.0.3
   geolocator: ^8.2.1
   flare_flutter: ^3.0.2
+  shared_preferences: ^2.0.15
+  google_sign_in: ^5.3.3
+  firebase_core: ^1.17.1
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +67,7 @@ flutter:
     - lib/assets/empty_card.svg
     - lib/assets/izibus-logo.svg
     - lib/assets/bus-logo.svg
+    - lib/assets/google.png
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

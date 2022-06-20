@@ -9,7 +9,7 @@ class TextStyles {
     color: AppColors.textPrimary,
   );
   static final cardTitle = GoogleFonts.outfit(
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: FontWeight.w600,
     color: AppColors.textPrimary,
   );
@@ -34,10 +34,15 @@ class TextStyles {
     color: AppColors.inputPlaceholder,
   );
   static final smallText = GoogleFonts.outfit(
-    fontSize: 12,
-    fontWeight: FontWeight.w200,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
     color: AppColors.inputPlaceholder,
   );
+  static final socialLoginText = GoogleFonts.outfit(
+      fontSize: 16,
+      fontWeight: FontWeight.w600,
+      color: AppColors.inputPlaceholder,
+      letterSpacing: 1.0);
   static final listFirst = GoogleFonts.outfit(
     fontSize: 16,
     fontWeight: FontWeight.w600,
@@ -58,4 +63,6 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.inputPlaceholder,
   );
+  static final mediumTextBlack = GoogleFonts.outfit(
+      fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.textPrimary);
 }

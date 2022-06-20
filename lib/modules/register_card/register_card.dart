@@ -12,17 +12,21 @@ class RegisterCard extends StatefulWidget {
 }
 
 String? _validateName(String? value) {
-  String patttern = r'(^[a-zA-Z ]*$)';
-  RegExp regExp = RegExp(patttern);
-  if (value?.length != null) {
+  String pattern = r'(^[a-zA-Z ]*$)';
+  RegExp regExp = RegExp(pattern);
+  if (value != null && value.isEmpty) {
     return "Informe o nome";
   } else if (!regExp.hasMatch(value!)) {
     return "O nome deve conter caracteres de a-z ou A-Z";
   }
-  return null as String;
+  return null;
 }
 
 class _RegisterCardState extends State<RegisterCard> {
+  final cpfController = TextEditingController();
+  final idController = TextEditingController();
+  final cardNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,25 +55,28 @@ class _RegisterCardState extends State<RegisterCard> {
                   ),
                   Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const <Widget>[
+                      children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: TextInput(
                             placeholder: "Seu Cpf",
+                            controller: cpfController,
                             validator: _validateName,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: TextInput(
                             placeholder: "ID do cartão",
+                            controller: idController,
                             validator: _validateName,
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: TextInput(
                             placeholder: "Nome do cartão",
+                            controller: cardNameController,
                             validator: _validateName,
                           ),
                         ),

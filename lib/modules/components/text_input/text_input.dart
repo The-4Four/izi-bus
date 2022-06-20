@@ -13,11 +13,13 @@ class TextInput extends StatelessWidget {
   final String placeholder;
   final String? Function(String? value) validator;
   final TextInputType? textInputType;
+  final TextEditingController? controller;
 
   const TextInput(
       {Key? key,
       required this.placeholder,
       required this.validator,
+      required this.controller,
       this.textInputType})
       : super(key: key);
 
@@ -25,6 +27,7 @@ class TextInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
         validator: validator,
+        controller: controller,
         keyboardType: textInputType ?? TextInputType.text,
         style: TextStyles.inputLabel,
         decoration: InputDecoration(

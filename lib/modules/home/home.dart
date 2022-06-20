@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:izi_bus/modules/components/bottom_sheet/bottom_sheet.dart';
 import 'package:izi_bus/modules/components/buses.temp.dart';
 import 'package:izi_bus/modules/components/button/button.dart';
 import 'package:izi_bus/modules/components/directions_model.dart';
 import 'package:izi_bus/modules/components/stops.temp.dart';
+import 'package:izi_bus/modules/homeController/homeController.dart';
 import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/modules/stops_page/stops_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -14,8 +16,9 @@ import 'package:izi_bus/utils/custom_marker_icon.dart';
 import '../../shared/themes/app_colors.dart';
 import '../components/directions_repository.dart';
 
-// ignore: use_key_in_widget_constructors
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -25,6 +28,9 @@ class _HomeState extends State<Home> {
   final List<Marker> stopsMarkers = <Marker>[];
   final List<Marker> markers = <Marker>[];
   final List<LatLng> _directions = <LatLng>[];
+
+  final homeController = HomeController();
+  late Position _currentPosition;
 
   // Posição inicial do mapa
   static const _initialCameraPosition = CameraPosition(
@@ -39,6 +45,13 @@ class _HomeState extends State<Home> {
     final GoogleMapController controller = await _controller.future;
     controller
         .animateCamera(CameraUpdate.newCameraPosition(_initialCameraPosition));
+  }
+
+  Future<void> _setUserInitialPosition() async {
+    Position position = await homeController.determinePosition() as Position;
+    setState(() {
+      _currentPosition = position;
+    });
   }
 
   Future<void> _onTapMarker(String id, double lat, double long) async {
@@ -179,7 +192,8 @@ class _HomeState extends State<Home> {
             myLocationEnabled: true,
             trafficEnabled: false,
             tiltGesturesEnabled: true,
-            onMapCreated: (GoogleMapController controller) {
+            onMapCreated: (GoogleMapController controller) async {
+              await _setUserInitialPosition();
               _setMapInitialPosition();
               _addInitialMarkers();
               _controller.complete(controller);
