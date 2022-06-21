@@ -30,19 +30,9 @@ class _RechargeUserCardPageState extends State<RechargeUserCardPage> {
 
   Widget getPaymentTypeWidget(context) {
     if (selectedPaymentType == PaymentType.pix) {
-      setState(() {
-        // finishedButtonDisabled = false;
-      });
       return PixClipBoard(clipboardContext: context);
     } else if (selectedPaymentType == PaymentType.transfer) {
-      setState(() {
-        // finishedButtonDisabled = false;
-      });
       return BeneficiaryBankAccountInfo();
-    } else if (selectedPaymentType == PaymentType.creditCard) {
-      setState(() {
-        // finishedButtonDisabled = false;
-      });
     }
 
     return Container();
