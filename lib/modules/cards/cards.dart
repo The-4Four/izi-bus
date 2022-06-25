@@ -94,7 +94,7 @@ class _CardsState extends State<Cards> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         GestureDetector(
-                          onTap: () {
+                          onLongPress: () {
                             showModalBottomSheet<dynamic>(
                                 context: context,
                                 isScrollControlled: true,
@@ -105,6 +105,9 @@ class _CardsState extends State<Cards> {
                                   return const CustomBottomSheet(
                                       child: CardActions());
                                 });
+                          },
+                          onTap: () {
+                            Navigator.pop(context);
                           },
                           child: getCards(),
                         )

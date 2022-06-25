@@ -232,13 +232,13 @@ class _HomeState extends State<Home> {
                       padding: const EdgeInsets.only(right: 16.0, top: 8),
                       child: Container(
                           decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            borderRadius: BorderRadius.all(Radius.circular(4)),
                             color: AppColors.secondary,
                           ),
                           width: 40,
                           height: 40,
-                          child: const Icon(Icons.add_card,
-                              size: 16, color: AppColors.background)),
+                          child: const Icon(Icons.credit_card,
+                              size: 24, color: AppColors.background)),
                     ),
                     onTap: () {
                       Navigator.pushNamed(context, "/card");
