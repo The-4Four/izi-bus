@@ -10,6 +10,8 @@ import 'package:izi_bus/modules/homeController/homeController.dart';
 import 'package:izi_bus/modules/lines_page/lines_page.dart';
 import 'package:izi_bus/modules/stops_page/stops_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:izi_bus/shared/auth/auth_controller.dart';
+import 'package:izi_bus/shared/models/user_model.dart';
 import 'package:izi_bus/shared/themes/app_text_styles.dart';
 import 'package:izi_bus/utils/custom_marker_icon.dart';
 
@@ -17,7 +19,8 @@ import '../../shared/themes/app_colors.dart';
 import '../components/directions_repository.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final UserModel? user;
+  const Home({Key? key, this.user}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -31,6 +34,8 @@ class _HomeState extends State<Home> {
 
   final homeController = HomeController();
   late Position _currentPosition;
+
+  final AuthController authController = AuthController();
 
   // Posição inicial do mapa
   static const _initialCameraPosition = CameraPosition(
@@ -124,8 +129,6 @@ class _HomeState extends State<Home> {
     setState(() {});
   }
 
-  static const String name = "Cinglair";
-
   AppBar _appBar(height) => AppBar(
         toolbarHeight: height,
         flexibleSpace: Container(
@@ -144,7 +147,7 @@ class _HomeState extends State<Home> {
                         children: [
                           Text("Olá, ", style: TextStyles.listFirst),
                           Text(
-                            name,
+                            widget.user!.name,
                             style: TextStyles.mediumBoldText,
                           )
                         ],
@@ -155,13 +158,17 @@ class _HomeState extends State<Home> {
                       )
                     ],
                   ),
-                  const CircleAvatar(
-                    backgroundColor: AppColors.primary,
-                    radius: 25,
+                  GestureDetector(
+                    onTap: () {
+                      authController.handleSignOut(context);
+                    },
                     child: CircleAvatar(
-                      radius: 24,
-                      backgroundImage:
-                          NetworkImage('https://picsum.photos/id/237/200/300'),
+                      backgroundColor: AppColors.primary,
+                      radius: 25,
+                      child: CircleAvatar(
+                        radius: 24,
+                        backgroundImage: NetworkImage(widget.user!.photoUrl!),
+                      ),
                     ),
                   ),
                 ]),
@@ -178,7 +185,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(72.0),
+      appBar: widget.user!.name != '' ? _appBar(72.0) : null,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
@@ -224,26 +231,29 @@ class _HomeState extends State<Home> {
                       });
                 },
               )),
-          Expanded(
-              child: Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 16.0, top: 8),
-                      child: Container(
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(4)),
-                            color: AppColors.secondary,
-                          ),
-                          width: 40,
-                          height: 40,
-                          child: const Icon(Icons.credit_card,
-                              size: 24, color: AppColors.background)),
-                    ),
-                    onTap: () {
-                      Navigator.pushNamed(context, "/card");
-                    },
-                  )))
+          widget.user!.name != ''
+              ? Expanded(
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 16.0, top: 8),
+                          child: Container(
+                              decoration: const BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(4)),
+                                color: AppColors.secondary,
+                              ),
+                              width: 40,
+                              height: 40,
+                              child: const Icon(Icons.credit_card,
+                                  size: 24, color: AppColors.background)),
+                        ),
+                        onTap: () {
+                          Navigator.pushNamed(context, "/card");
+                        },
+                      )))
+              : Container(),
         ],
       ),
     );

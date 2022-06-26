@@ -1,10 +1,12 @@
 import 'package:flutter/widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:izi_bus/shared/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController {
   bool userIsAuthenticated = false;
   UserModel? _user;
+  UserModel get user => _user!;
 
   void setUser(BuildContext context, UserModel? user) {
     if (user != null) {
@@ -12,7 +14,7 @@ class AuthController {
       _user = user;
       userIsAuthenticated = true;
 
-      Navigator.pushReplacementNamed(context, "/");
+      Navigator.pushReplacementNamed(context, "/", arguments: user);
     } else {
       userIsAuthenticated = false;
 
@@ -39,5 +41,15 @@ class AuthController {
 
     setUser(context, null);
     return;
+  }
+
+  Future<void> handleSignOut(BuildContext context) async {
+    GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+    final instance = await SharedPreferences.getInstance();
+
+    googleSignIn.disconnect();
+    instance.remove("user");
+
+    Navigator.pushReplacementNamed(context, "/login");
   }
 }
