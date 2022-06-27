@@ -7,6 +7,7 @@ import 'package:izi_bus/modules/recharge_user_card/credit_card/register_credit_c
 import 'package:izi_bus/modules/recharge_user_card/recharge_user_card.dart';
 import 'package:izi_bus/modules/register_card/register_card.dart';
 import 'package:izi_bus/modules/splash_screen/splash_screen.dart';
+import 'package:izi_bus/shared/models/user_model.dart';
 import 'package:izi_bus/shared/themes/app_colors.dart';
 
 class Routes {
@@ -14,7 +15,12 @@ class Routes {
     final args = settings.arguments;
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => const Home());
+        return MaterialPageRoute(
+            builder: (context) => Home(
+                  user: args != null
+                      ? args as UserModel
+                      : UserModel(name: '', photoUrl: ''),
+                ));
       case '/splash':
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case '/login':

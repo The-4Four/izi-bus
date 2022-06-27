@@ -15,6 +15,7 @@ class LoginPageController {
           UserModel(name: response!.displayName!, photoUrl: response.photoUrl);
       authController.setUser(context, user);
     } catch (error) {
+      authController.setUser(context, null);
       print(error);
     }
   }
